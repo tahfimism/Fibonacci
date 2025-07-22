@@ -8,20 +8,26 @@ let animationFrameId = null;
 
 function render(num) {
     const scrollContainer = document.querySelector('.scroll-container');
-
-    // Clear previous content
     scrollContainer.innerHTML = '';
 
-    
     let html = '';
     for (let i = num.length - 1; i >= 0; i--) {
-        html += `<div class="number-div">${num[i].toString()}</div>`;
+        html += `<div class="number-div" title="${num[i].toString()}">${num[i].toString()}</div>`;
     }
-
-    // Set content all at once
     scrollContainer.innerHTML = html;
 
-    // Reset scroll tracking vars if you’re using them elsewhere
+    // Add click toggle listeners after DOM is ready
+    const divs = scrollContainer.querySelectorAll('.number-div');
+    divs.forEach(div => {
+        div.addEventListener('click', () => {
+            // Collapse any other expanded boxes first if you want only one open
+            divs.forEach(d => {
+                if (d !== div) d.classList.remove('expanded');
+            });
+            div.classList.toggle('expanded');
+        });
+    });
+
     currentScrollLeft = scrollContainer.scrollLeft;
     targetScrollLeft = scrollContainer.scrollLeft;
 }
@@ -32,15 +38,15 @@ function render(num) {
 
 
 function calculate() {
-    let a = 0;
-    let b = 1;
+    let a = 0n;           // BigInt zero
+    let b = 1n;           // BigInt one
     let num = [a, b];
 
     let input = document.getElementById('input-number');
     let n = parseInt(input.value);
 
     for (let i = 2; i < n; i++) {
-        let next = a + b;
+        let next = a + b;  // BigInt addition
         num.push(next);
         a = b;
         b = next;

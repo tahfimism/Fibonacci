@@ -65,26 +65,44 @@ input::placeholder {
 
 
 .number-div {
-    margin: 10px;
-    flex-shrink: 0;
-    width: 200px;
-    height: 150px;
-    border-radius: 10px;
-    border: 2px solid rgb(248, 207, 154);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-family: 'Poppins', sans-serif;
+  margin: 10px;
+  flex-shrink: 0;
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid rgb(248, 207, 154);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 2vw, 30px);
+  font-family: 'Poppins', sans-serif;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
+  cursor: pointer;
+  transition: width 0.3s ease, font-size 0.3s ease;
+}
 
-    transition: transform 0.2s ease-in-out;
+/* Expanded style on click */
+.number-div.expanded {
+  width: auto;            /* let width fit content */
+  max-width: none; 
+  min-width: 200px;       /* remove any max width limits */
+  white-space: normal;    /* allow wrapping */
+  overflow: visible;      /* show all content */
+  text-overflow: clip;    /* no ellipsis */
+  z-index: 10;
+  position: relative;
+  background: #fffbea;
+  box-shadow: 0 0 10px rgba(165, 113, 17, 0.3);
+  padding: 10px 20px;     /* optional: add some horizontal padding */
 }
 
 
 .number-div:hover {
-    background: linear-gradient(145deg, #fef3c7, #fde68a); /* subtle yellow gradient */
+    background: #FFFCEB; /* subtle yellow gradient */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* soft drop shadow */
 }
 
