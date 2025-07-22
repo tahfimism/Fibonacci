@@ -6,8 +6,6 @@ let animationFrameId = null;
 
 
 
-
-
 function render(num) {
     const scrollContainer = document.querySelector('.scroll-container');
 
@@ -83,14 +81,22 @@ render(initial_num);
 
 
 
-// Add scroll event listener to synchronize with manual dragging
-// This should be outside render() and after render() is called to ensure scrollContainer is defined
-scrollContainer.addEventListener('scroll', () => {
-    if (animationFrameId === null) { // Only update if no animation is running
-        currentScrollLeft = scrollContainer.scrollLeft;
-        targetScrollLeft = scrollContainer.scrollLeft;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    scrollContainer = document.querySelector('.scroll-container');
+
+    scrollContainer.addEventListener('scroll', () => {
+        if (animationFrameId === null) {
+            currentScrollLeft = scrollContainer.scrollLeft;
+            targetScrollLeft = scrollContainer.scrollLeft;
+        }
+    });
+
+    // other initialization code here...
 });
+
+
+// rest of your code...
+
 
 function animateScroll() {
     const difference = targetScrollLeft - currentScrollLeft;
