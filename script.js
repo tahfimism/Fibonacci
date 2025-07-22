@@ -19,7 +19,7 @@ function render(){
     
     }
 
-    // Initialize currentScrollLeft to the actual scroll position
+    // Initialize currentScrollLeft and targetScrollLeft to the actual scroll position
     currentScrollLeft = scrollContainer.scrollLeft;
     targetScrollLeft = scrollContainer.scrollLeft;
 }
@@ -27,8 +27,14 @@ function render(){
 // Call render function to display numbers on page load
 render();
 
-
-
+// Add scroll event listener to synchronize with manual dragging
+// This should be outside render() and after render() is called to ensure scrollContainer is defined
+scrollContainer.addEventListener('scroll', () => {
+    if (animationFrameId === null) { // Only update if no animation is running
+        currentScrollLeft = scrollContainer.scrollLeft;
+        targetScrollLeft = scrollContainer.scrollLeft;
+    }
+});
 
 function animateScroll() {
     const difference = targetScrollLeft - currentScrollLeft;
@@ -45,20 +51,19 @@ function animateScroll() {
     animationFrameId = requestAnimationFrame(animateScroll);
 }
 
-
-
-
 // Add event listener for horizontal mouse wheel scrolling on the whole window
 window.addEventListener('wheel', (e) => {
     if (scrollContainer) { // Ensure the container exists
         e.preventDefault(); // Prevent default vertical scrolling of the window
-        targetScrollLeft += e.deltaY; // Accumulate scroll amount
+        
+        // Always update currentScrollLeft to actual position before calculating new target
+        currentScrollLeft = scrollContainer.scrollLeft; 
+        targetScrollLeft = currentScrollLeft + e.deltaY * 2; // Accumulate scroll amount, faster
 
         // Clamp targetScrollLeft to valid range
         targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, scrollContainer.scrollWidth - scrollContainer.clientWidth));
 
         if (animationFrameId === null) { // Start animation if not already running
-            currentScrollLeft = scrollContainer.scrollLeft; // Sync current with actual before starting
             animationFrameId = requestAnimationFrame(animateScroll);
         }
     }
