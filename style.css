@@ -29,19 +29,19 @@ h1 {
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent thumb */
+  background-color: rgba(165, 113, 17, 0.123); /* Semi-transparent thumb */
   border-radius: 10px;
   border: 2px solid transparent; /* Transparent border to make it thinner */
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.3); /* Darker on hover */
+  background-color: rgba(165, 113, 17, 0.089) transparent; /* Darker on hover */
 }
 
 /* Firefox scrollbar styling */
 .scroll-container {
     scrollbar-width: thin; /* "auto" or "thin" */
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* thumb and track color */
+    scrollbar-color: rgba(165, 113, 17, 0.185) transparent; /* thumb and track color */
 }
 
 
@@ -68,17 +68,22 @@ input::placeholder {
     margin: 10px;
     flex-shrink: 0;
     width: 200px;
-    height: 150px;
+    min-height: 150px;
     border-radius: 10px;
     border: 2px solid rgb(248, 207, 154);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s ease-in-out;
 }
 
 
-
+.number-div:hover {
+    background: linear-gradient(145deg, #fdebc96e, #fdd98a59); /* subtle yellow gradient */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* soft drop shadow */
+}
 
 
 
@@ -99,7 +104,7 @@ input::placeholder {
     overflow-x: scroll;
     flex-wrap: nowrap;
     max-width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 

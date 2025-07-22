@@ -1,31 +1,87 @@
-num = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39, 41,43,45,47,49,51,53,55,57,59,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39, 41,43,45,47,49,51,53,55,57,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39, 41,43,45,47,49,51,53,55,57
-]
 
 let scrollContainer;
 let targetScrollLeft = 0;
 let currentScrollLeft = 0;
 let animationFrameId = null;
 
-function render(){
 
-    scrollContainer = document.querySelector('.scroll-container')
 
-    // Clear existing content to prevent duplication if render is called multiple times
-    scrollContainer.innerHTML = ''; 
 
-    const len = num.length
-    for(let i = 0; i < len; i++){
-        scrollContainer.innerHTML += `<div class="number-div">${num[i]}</div>`
+
+function render(num) {
+    const scrollContainer = document.querySelector('.scroll-container');
+
+    // Clear previous content
+    scrollContainer.innerHTML = '';
+
     
+    let html = '';
+    for (let i = num.length - 1; i >= 0; i--) {
+        html += `<div class="number-div">${num[i].toString()}</div>`;
     }
 
-    // Initialize currentScrollLeft and targetScrollLeft to the actual scroll position
+    // Set content all at once
+    scrollContainer.innerHTML = html;
+
+    // Reset scroll tracking vars if you’re using them elsewhere
     currentScrollLeft = scrollContainer.scrollLeft;
     targetScrollLeft = scrollContainer.scrollLeft;
 }
 
+
+
+
+
+
+function calculate() {
+    let a = 0;
+    let b = 1;
+    let num = [a, b];
+
+    let input = document.getElementById('input-number');
+    let n = parseInt(input.value);
+
+    for (let i = 2; i < n; i++) {
+        let next = a + b;
+        num.push(next);
+        a = b;
+        b = next;
+    }
+
+    console.log(num);
+    render(num);
+    input.value = '';
+}
+
+
+
+
+document.querySelector('button').addEventListener('click', calculate)
+
+document.getElementById('input-number').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        calculate();
+    }
+});
+
+
+
+
+
 // Call render function to display numbers on page load
-render();
+initial_num = [21, 13, 8, 5, 3, 2, 1, 0]
+render(initial_num);
+
+
+
+
+
+
+
+
+
+
+
 
 // Add scroll event listener to synchronize with manual dragging
 // This should be outside render() and after render() is called to ensure scrollContainer is defined
@@ -54,7 +110,7 @@ function animateScroll() {
 // Add event listener for horizontal mouse wheel scrolling on the whole window
 window.addEventListener('wheel', (e) => {
     if (scrollContainer) { // Ensure the container exists
-        e.preventDefault(); // Prevent default vertical scrolling of the window
+         // Prevent default vertical scrolling of the window
         
         // Always update currentScrollLeft to actual position before calculating new target
         currentScrollLeft = scrollContainer.scrollLeft; 
