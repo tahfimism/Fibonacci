@@ -11,7 +11,7 @@ function render(num) {
     scrollContainer.innerHTML = '';
 
     let html = '';
-    for (let i = num.length - 1; i >= 0; i--) {
+    for (let i = 0; i < num.length; i++) {
         html += `<div class="number-div" title="${num[i].toString()}">${num[i].toString()}</div>`;
     }
     scrollContainer.innerHTML = html;
@@ -73,7 +73,7 @@ document.getElementById('input-number').addEventListener('keydown', function(eve
 
 
 // Call render function to display numbers on page load
-initial_num = [21, 13, 8, 5, 3, 2, 1, 0]
+initial_num = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 render(initial_num);
 
 
