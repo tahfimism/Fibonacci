@@ -38,19 +38,43 @@ function render(num) {
 
 
 function calculate() {
-    let a = 0n;           // BigInt zero
-    let b = 1n;           // BigInt one
-    let num = [a, b];
 
+    // getting the no. of term
     let input = document.getElementById('input-number');
     let n = parseInt(input.value);
 
-    for (let i = 2; i < n; i++) {
-        let next = a + b;  // BigInt addition
-        num.push(next);
-        a = b;
-        b = next;
+
+    function fibonacci(n) {
+
+        let a = 0n;           // BigInt zero
+        let b = 1n;           // BigInt one
+        let num = [a, b];
+
+        for (let i = 2; i < n; i++) {
+            let next = a + b;  // BigInt addition
+            num.push(next);
+            a = b;
+            b = next;
+        }
+        return num
     }
+
+    function getPascalsRowBigInt(n) {
+        const row = [];
+        let val = 1n; // Start with BigInt 1
+        row.push(val);
+
+        for (let k = 1n; k <= BigInt(n); k++) {
+            val = val * (BigInt(n) - k + 1n) / k;
+            row.push(val);
+        }
+
+        return row;
+        console.log(row);
+    }
+
+    // num = getPascalsRowBigInt(n)
+    num = fibonacci(n)
 
     console.log(num);
     render(num);
